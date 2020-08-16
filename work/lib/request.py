@@ -8,7 +8,7 @@ lock = threading.Lock()
 sleep_sec = 1
 
 def get_page(url):
-    print(url)
+#    print(url)
     lock.acquire()
 
     r = requests.get(url)
@@ -19,7 +19,7 @@ def get_page(url):
     return BeautifulSoup(r.text,features='lxml')
 
 def get_dataframe(url):
-    print(url)
+#    print(url)
 
     lock.acquire()
 

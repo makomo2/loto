@@ -1,18 +1,18 @@
 import numpy as np
 import pandas as pd
-import os
-import tensorflow as tf
-import logging
-
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-tf.get_logger().setLevel('INFO')
-tf.get_logger().setLevel(logging.ERROR)
 
 from sklearn import preprocessing
 
-h5_file     = 'h5/loto.h5'
-num_classes = 43
-before_num  = 5
+x_column = 5
+
+def get_num_classes(kind):
+    return 37 if kind == 'loto7' else (43 if kind == 'loto6' else 31)
+
+def get_x_data(data, index):
+    ret = []
+    for i in range(x_column):
+        ret += data[index - x_column + i].numbers.split(',')
+    return ret
 
 def fit_transform(x):
     mm = preprocessing.MinMaxScaler()
