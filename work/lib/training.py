@@ -10,8 +10,24 @@ def get_num_classes(kind):
 
 def get_x_data(data, index):
     ret = []
+    num_classes = get_num_classes(data[0].kind)
     for i in range(x_column):
-        ret += data[index - x_column + i].numbers.split(',')
+        d = data[index - x_column + i].numbers.split(',')
+        d = list(map(int,d))
+
+        even = list(filter(lambda x: x % 2 == 0, d))
+        odd  = list(filter(lambda x: x % 2 != 0, d))
+
+        plus  = [x + 1 for x in d]
+        plus = [num_classes if p > num_classes else p for p in plus]
+        
+        minus = [x - 1 for x in d]
+        minus = [1 if m < 1 else m for m in minus]
+
+        ret += d
+        ret += [len(even), len(odd)]
+        ret += plus
+        ret += minus
     return ret
 
 def fit_transform(x):

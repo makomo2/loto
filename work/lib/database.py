@@ -30,7 +30,7 @@ class Loto(Base):
 def add_loto(loto):
     loto.to_sql("loto", engine, if_exists = "append", index = False)
 
-def delete_loto(kind):
-    s = session.query(Loto).filter(Loto.kind == kind)
+def delete_loto(kind, min_times, max_times):
+    s = session.query(Loto).filter(Loto.kind == kind, Loto.times >= min_times, Loto.times <= max_times)
     s.delete(synchronize_session = 'fetch')
     session.commit()
